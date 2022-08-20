@@ -8,9 +8,20 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Reference",
+"class": "MultipointRayCastCast",
+"language": "GDScript",
+"path": "res://src/mult-point-ray-cast.gd"
+} ]
+_global_script_class_icons={
+"MultipointRayCastCast": ""
+}
+
 [application]
 
 config/name="multi-point-ray-cast"
+run/main_scene="res://src/scenes/example/example.tscn"
 config/icon="res://icon.png"
 
 [physics]
