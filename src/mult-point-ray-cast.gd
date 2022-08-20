@@ -13,12 +13,10 @@ static func intersect(
 	var points := {}
 	var nodes := _segment_cast(begin_pos, end_pos, exclude, space_state)
 	for node in nodes:
-		var node_points := []
 		if node is CollisionPolygon2D:
-			node_points = intersect_polygon(begin_pos, end_pos, node, eps)
+			points[node] = intersect_polygon(begin_pos, end_pos, node, eps)
 		elif node is CollisionShape2D:
-			node_points = intersect_shape(begin_pos, end_pos, node, eps)
-		points[node] = node_points
+			points[node] = intersect_shape(begin_pos, end_pos, node, eps)
 	var has_points := false
 	if points.size() > 0:
 		for node in points:
@@ -94,29 +92,31 @@ static func intersect_polygon_points(
 	polygon: Array,
 	eps: float
 ) -> Array:
+	var pos := node.global_position
+	var rot := node.global_rotation
+	begin_pos = (begin_pos - pos).rotated(-rot)
+	end_pos = (end_pos - pos).rotated(-rot)
 	var points := []
 	for index in polygon.size():
 		var next_index: int = (index + 1) % polygon.size()
-		var p1: Vector2 = (
-			node.global_position +
-			polygon[index].rotated(node.global_rotation)
-		)
-		var p2: Vector2 = (
-			node.global_position +
-			polygon[next_index].rotated(node.global_rotation)
-		)
+		# var p1: Vector2 = pos + polygon[index].rotated(rot)
+		# var p2: Vector2 = pos + polygon[next_index].rotated(rot)
+		var p1: Vector2 = polygon[index]
+		var p2: Vector2 = polygon[next_index]
 		var p3 := begin_pos
 		var p4 := end_pos
 		# NOTE: Линия нулевой длины
 		if p1 == p2:
 			if abs((p3.x - p4.x) * (p1.y - p4.y) - (p1.x - p4.x) * (p3.y - p4.y)) < eps:
-				points.push_back({ 'p': p1, 's': 1.0 })
-				points.push_back({ 'p': p1, 's': -1.0 })
+				var p := p1.rotated(rot) + pos
+				points.push_back({ 'p': p, 's': 1.0 })
+				points.push_back({ 'p': p, 's': -1.0 })
 		# NOTE: Луч нулевой длины
 		elif p3 == p4:
 			if abs((p1.x - p2.x) * (p3.y - p2.y) - (p3.x - p2.x) * (p1.y - p2.y)) < eps:
-				points.push_back({ 'p': p3, 's': 1.0 })
-				points.push_back({ 'p': p3, 's': -1.0 })
+				var p := p3.rotated(rot) + pos
+				points.push_back({ 'p': p, 's': 1.0 })
+				points.push_back({ 'p': p, 's': -1.0 })
 		else:
 			var intersection := _line_line_intersection(p1, p2, p3, p4, eps)
 			if (
@@ -125,7 +125,9 @@ static func intersect_polygon_points(
 				(intersection.u >= 0.0 and intersection.u <= 1.0)
 			):
 				var s := _side(p1, p2, p3)
-				points.push_back({ 'p': intersection.p, 's': s })
+				var p: Vector2 = intersection.p
+				p = p.rotated(rot) + pos
+				points.push_back({ 'p': p, 's': s })
 	return points
 
 static func _segment_cast(
