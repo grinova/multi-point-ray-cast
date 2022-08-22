@@ -12,7 +12,7 @@ static func intersect(
 	eps: float = DEFAULT_EPS
 ) -> Dictionary:
 	var points := {}
-	var nodes := _segment_cast(begin_pos, end_pos, exclude, space_state)
+	var nodes := segment_cast(begin_pos, end_pos, exclude, space_state)
 	for node in nodes:
 		if node is CollisionPolygon2D:
 			points[node] = intersect_polygon(begin_pos, end_pos, node, eps)
@@ -119,6 +119,27 @@ static func intersect_circle(
 			points.push_back({ 'p': intersection.p, 's': 1.0 })
 	return points
 
+static func segment_cast(
+	begin_pos: Vector2,
+	end_pos: Vector2,
+	exclude: Array,
+	space_state: Physics2DDirectSpaceState
+) -> Dictionary:
+	var shape := SegmentShape2D.new()
+	shape.set_a(begin_pos)
+	shape.set_b(end_pos)
+	var query := Physics2DShapeQueryParameters.new()
+	query.set_shape(shape)
+	query.set_exclude(exclude)
+	var hits := space_state.intersect_shape(query)
+	var nodes := {}
+	for hit in hits:
+		var owner_id: int = hit.collider.shape_find_owner(hit.shape)
+		var shape_owner: Object = hit.collider.shape_owner_get_owner(owner_id)
+		if not nodes.has(shape_owner):
+			nodes[shape_owner] = true
+	return nodes
+
 static func _endpoints(begin_pos: Vector2, end_pos: Vector2, points: Dictionary) -> void:
 	var has_points := false
 	if points.size() > 0:
@@ -156,27 +177,6 @@ static func _endpoints(begin_pos: Vector2, end_pos: Vector2, points: Dictionary)
 			if inside != outside:
 				pass
 			assert(inside == outside)
-
-static func _segment_cast(
-	begin_pos: Vector2,
-	end_pos: Vector2,
-	exclude: Array,
-	space_state: Physics2DDirectSpaceState
-) -> Dictionary:
-	var shape := SegmentShape2D.new()
-	shape.set_a(begin_pos)
-	shape.set_b(end_pos)
-	var query := Physics2DShapeQueryParameters.new()
-	query.set_shape(shape)
-	query.set_exclude(exclude)
-	var hits := space_state.intersect_shape(query)
-	var nodes := {}
-	for hit in hits:
-		var owner_id: int = hit.collider.shape_find_owner(hit.shape)
-		var shape_owner: Object = hit.collider.shape_owner_get_owner(owner_id)
-		if not nodes.has(shape_owner):
-			nodes[shape_owner] = true
-	return nodes
 
 # https://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect
 static func _line_line_intersection(p: Vector2, pr: Vector2, q: Vector2, qs: Vector2, eps: float) -> Dictionary:
