@@ -214,12 +214,6 @@ static func _side(p1: Vector2, p2: Vector2, p3: Vector2) -> float:
 	var d := (p3.x - p1.x) * (p2.y - p1.y) - (p3.y - p1.y) * (p2.x - p1.x)
 	return sign(d)
 
-static func _a_coefficient(a: Vector2, b: Vector2) -> float:
-	return (a.y - b.y) / (a.x - b.x)
-
-static func _b_coefficient(a: Vector2, b: Vector2) -> float:
-	return (b.y * (a.x - b.x) - b.x * (a.y - b.y)) / (a.x - b.x)
-
 static func _cubic_solve(a: float, b: float, c: float) -> Array:
 	var solution := []
 	var D := b * b - 4.0 * a * c
@@ -230,14 +224,3 @@ static func _cubic_solve(a: float, b: float, c: float) -> Array:
 		solution.push_back(x1)
 		solution.push_back(x2)
 	return solution
-
-static func _segment_has_point(p: Vector2, a: Vector2, b: Vector2) -> bool:
-	if a.x != b.x:
-		var k := (p.x - a.x) / (b.x - a.x)
-		return k >= 0.0 and k <= 1.0
-	else:
-		var k := (p.y - a.y) / (b.y - a.y)
-		return k >= 0.0 and k <= 1.0
-
-static func _squared_length(d: Vector2) -> float:
-	return d.x * d.x + d.y * d.y
