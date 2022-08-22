@@ -173,18 +173,22 @@ static func _segment_cast(
 			nodes[shape_owner] = true
 	return nodes
 
-static func _line_line_intersection(p1: Vector2, p2: Vector2, p3: Vector2, p4: Vector2, eps: float) -> Dictionary:
-	# NOTE: Делитель равен нулю если:
-	#  - Длина хотябы одного из отрезков p1-p2, p3-p4 равна нулю
-	#  - Прямые паралельны
-	#  - Прямые совпадают либо одна прямая перекрывает другую
-	var denominator := (p1.x - p2.x) * (p3.y - p4.y) - (p1.y - p2.y) * (p3.x - p4.x)
-	if abs(denominator) < eps:
-		return { 'd': false }
-	var t := ((p1.x - p3.x) * (p3.y - p4.y) - (p1.y - p3.y) * (p3.x - p4.x)) / denominator
-	var u := ((p1.x - p3.x) * (p1.y - p2.y) - (p1.y - p3.y) * (p1.x - p2.x)) / denominator
-	var p := p1 + (p2 - p1) * t
-	return { 'd': true, 't': t, 'u': u, 'p': p }
+# https://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect
+static func _line_line_intersection(p: Vector2, pr: Vector2, q: Vector2, qs: Vector2, eps: float) -> Dictionary:
+	var r := pr - p
+	var s := qs - q
+	if abs(r.cross(s)) < eps:
+		if abs((q - p).cross(r)) < eps:
+			# NOTE: Прямые колинеарны
+			return { 'd': false }
+		else:
+			# NOTE: Прямые паралельны и не пересекаются
+			return { 'd': false }
+	else:
+		var t := (q - p).cross(s) / r.cross(s)
+		var u := (q - p).cross(r) / r.cross(s)
+		return { 'd': true, 't': t, 'u': u, 'p': p + t * r }
+		# return { 'd': true, 't': t, 'u': u, 'p': q + u * s }
 
 # https://stackoverflow.com/questions/1073336/circle-line-segment-collision-detection-algorithm
 static func _segment_circle_intersection(p1: Vector2, p2: Vector2, center: Vector2, r: float) -> Array:

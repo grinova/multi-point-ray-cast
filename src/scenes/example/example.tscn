@@ -120,7 +120,7 @@ polygon = PoolVector2Array( 4, -12, 8, 4, 0, 4, -4, 0 )
 
 [node name="polygon-m" type="CollisionPolygon2D" parent="static-body"]
 position = Vector2( 12, 8 )
-polygon = PoolVector2Array( 8, -8, 4, -4, 4, 4, 0, 4, 0, -8 )
+polygon = PoolVector2Array( 0, -8, 8, -8, 4, -4, 4, 4, 0, 4 )
 
 [node name="rectangle-a" type="CollisionShape2D" parent="static-body"]
 position = Vector2( 16, -6 )
