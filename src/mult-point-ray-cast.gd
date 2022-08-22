@@ -75,6 +75,8 @@ static func intersect_shape(
 	elif shape is ConvexPolygonShape2D:
 		var polygon := (shape as ConvexPolygonShape2D).points
 		return intersect_polygon_points(begin_pos, end_pos, node, polygon, eps)
+	elif shape is CircleShape2D:
+		return intersect_circle(begin_pos, end_pos, node, shape, eps)
 	return []
 
 static func intersect_polygon(
@@ -130,6 +132,40 @@ static func intersect_polygon_points(
 				points.push_back({ 'p': p, 's': s })
 	return points
 
+static func intersect_circle(
+	begin_pos: Vector2,
+	end_pos: Vector2,
+	node: CollisionShape2D,
+	shape: CircleShape2D,
+	eps: float
+) -> Array:
+	var center: Vector2 = node.global_position
+	var radius := shape.radius
+	var intersection := _line_circle_intersection(begin_pos, end_pos, center, radius, eps)
+	var points := []
+	var p3 := begin_pos
+	var p4 := end_pos
+	for i in range(intersection.size() - 1, -1, -1):
+		if not _segment_has_point(intersection[i], begin_pos, end_pos):
+			intersection.remove(i)
+	if intersection.size() == 2:
+		var p1: Vector2 = intersection[0]
+		var p2: Vector2 = intersection[1]
+		if _squared_length(p1, p3) >= _squared_length(p2, p3):
+			var t := p1
+			p1 = p2
+			p2 = t
+		points.push_back({ 'p': p1, 's': 1.0 })
+		points.push_back({ 'p': p2, 's': -1.0 })
+	elif intersection.size() == 1:
+		var p: Vector2 = intersection[0]
+		var squared_radius: = radius * radius
+		if _squared_length(p3, center) > squared_radius:
+			points.push_back({ 'p': p, 's': 1.0 })
+		elif _squared_length(p4, center) > squared_radius:
+			points.push_back({ 'p': p, 's': -1.0 })
+	return points
+
 static func _segment_cast(
 	begin_pos: Vector2,
 	end_pos: Vector2,
@@ -164,6 +200,20 @@ static func _line_line_intersection(p1: Vector2, p2: Vector2, p3: Vector2, p4: V
 	var p := p1 + (p2 - p1) * t
 	return { 'd': true, 't': t, 'u': u, 'p': p }
 
+static func _line_circle_intersection(p1: Vector2, p2: Vector2, c: Vector2, r: float, eps: float) -> Array:
+	var al := _a_coefficient(p1, p2)
+	var bl := _b_coefficient(p1, p2)
+	var aq := al * al + 1.0
+	var bq := 2.0 * (al * bl - c.x - al * c.y)
+	var cq := c.x * c.x - r * r + (bl - c.y) * (bl - c.y)
+	var xs := _cubic_solve(aq, bq, cq, eps)
+	var points := []
+	if xs.size() > 1:
+		for x in xs:
+			var y: float = al * x + bl
+			points.push_back(Vector2(x, y))
+	return points
+
 static func _side(p1: Vector2, p2: Vector2, p3: Vector2) -> float:
 	var d := (p3.x - p1.x) * (p2.y - p1.y) - (p3.y - p1.y) * (p2.x - p1.x)
 	return sign(d)
@@ -173,3 +223,31 @@ static func _a_coefficient(a: Vector2, b: Vector2) -> float:
 
 static func _b_coefficient(a: Vector2, b: Vector2) -> float:
 	return (b.y * (a.x - b.x) - b.x * (a.y - b.y)) / (a.x - b.x)
+
+static func _cubic_solve(a: float, b: float, c: float, eps: float) -> Array:
+	var solution := []
+	var D := b * b - 4.0 * a * c
+	if D >= eps:
+		var sqrt_D := sqrt(D)
+		var double_a := 2.0 * a
+		var x1 := (-b + sqrt_D) / double_a
+		var x2 := (-b - sqrt_D) / double_a
+		solution.push_back(x1)
+		solution.push_back(x2)
+	elif abs(D) < eps:
+		var x := -b / (2.0 * a)
+		solution.push_back(x)
+	return solution
+
+static func _segment_has_point(p: Vector2, a: Vector2, b: Vector2) -> bool:
+	if a.x != b.x:
+		var k := (p.x - a.x) / (b.x - a.x)
+		return k >= 0.0 and k <= 1.0
+	else:
+		var k := (p.y - a.y) / (b.y - a.y)
+		return k >= 0.0 and k <= 1.0
+
+static func _squared_length(a: Vector2, b: Vector2) -> float:
+	var dx = a.x - b.x
+	var dy = a.y - b.y
+	return dx * dx + dy * dy
