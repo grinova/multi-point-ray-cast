@@ -109,17 +109,7 @@ static func intersect_circle(
 ) -> Array:
 	var center: Vector2 = node.global_position
 	var radius := shape.radius
-	var intersections := _segment_circle_intersection(begin_pos, end_pos, center, radius)
-	var points := []
-	if intersections.size() > 0:
-		var intersection: Dictionary = intersections[0]
-		if intersection.t >= 0.0 and intersection.t <= 1.0:
-			points.push_back({ 'p': intersection.p, 't': false })
-	if intersections.size() > 1:
-		var intersection: Dictionary = intersections[1]
-		if intersection.t >= 0.0 and intersection.t <= 1.0:
-			points.push_back({ 'p': intersection.p, 't': true })
-	return points
+	return _intersect_circle_points(begin_pos, end_pos, center, radius)
 
 static func intersect_capsule(
 	begin_pos: Vector2,
@@ -155,45 +145,23 @@ static func intersect_capsule(
 
 	p3.y += hh
 	p4.y += hh
-	var intersections := _segment_circle_intersection(p3, p4, Vector2.ZERO, r)
-	if intersections.size() > 0:
-		var intersection: Dictionary = intersections[0]
-		if intersection.t >= 0.0 and intersection.t <= 1.0:
-			var p: Vector2 = intersection.p
-			if p.y < 0.0 or p.x == -r and p.y == 0.0:
-				p.y -= hh
-				p = p.rotated(rot) + pos
-				points.push_back({ 'p': p, 't': false })
-	if intersections.size() > 1:
-		var intersection: Dictionary = intersections[1]
-		if intersection.t >= 0.0 and intersection.t <= 1.0:
-			var p: Vector2 = intersection.p
-			if p.y < 0.0 or p.x == -r and p.y == 0.0:
-				p.y -= hh
-				p = p.rotated(rot) + pos
-				points.push_back({ 'p': p, 't': true })
+	var top_cap_points := _intersect_circle_points(p3, p4, Vector2.ZERO, r)
+	for point in top_cap_points:
+		if point.p.y < 0.0 or point.p.x == -r and point.p.y == 0.0:
+			point.p.y -= hh
+			point.p = point.p.rotated(rot) + pos
+			points.push_back(point)
 	if points.size() == 2:
 		return points
 
 	p3.y -= shape.height
 	p4.y -= shape.height
-	intersections = _segment_circle_intersection(p3, p4, Vector2.ZERO, r)
-	if intersections.size() > 0:
-		var intersection: Dictionary = intersections[0]
-		if intersection.t >= 0.0 and intersection.t <= 1.0:
-			var p: Vector2 = intersection.p
-			if p.y > 0.0 or p.x == r and p.y == 0.0:
-				p.y += hh
-				p = p.rotated(rot) + pos
-				points.push_back({ 'p': p, 't': false })
-	if intersections.size() > 1:
-		var intersection: Dictionary = intersections[1]
-		if intersection.t >= 0.0 and intersection.t <= 1.0:
-			var p: Vector2 = intersection.p
-			if p.y > 0.0 or p.x == -r and p.y == 0.0:
-				p.y += hh
-				p = p.rotated(rot) + pos
-				points.push_back({ 'p': p, 't': true })
+	var bottom_cap_points := _intersect_circle_points(p3, p4, Vector2.ZERO, r)
+	for point in bottom_cap_points:
+		if point.p.y > 0.0 or point.p.x == r and point.p.y == 0.0:
+			point.p.y += hh
+			point.p = point.p.rotated(rot) + pos
+			points.push_back(point)
 
 	return points
 
@@ -253,6 +221,20 @@ static func _endpoints(begin_pos: Vector2, end_pos: Vector2, points: Dictionary)
 				else:
 					far += 1
 			assert(far == near)
+
+static func _intersect_circle_points(
+	begin_pos: Vector2,
+	end_pos: Vector2,
+	center: Vector2,
+	radius: float
+) -> Array:
+	var intersections := _segment_circle_intersection(begin_pos, end_pos, center, radius)
+	var points := []
+	for i in intersections.size():
+		var intersection: Dictionary = intersections[i]
+		if intersection.t >= 0.0 and intersection.t <= 1.0:
+			points.push_back({ 'p': intersection.p, 't': i == 1 })
+	return points
 
 # https://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect
 static func _line_line_intersection(p: Vector2, pr: Vector2, q: Vector2, qs: Vector2, eps: float) -> Dictionary:

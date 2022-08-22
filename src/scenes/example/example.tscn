@@ -170,7 +170,7 @@ shape = SubResource( 12 )
 
 [node name="capsule-b" type="CollisionShape2D" parent="static-body"]
 position = Vector2( -40, -18 )
-rotation = 0.523599
+rotation = 3.49066
 shape = SubResource( 13 )
 
 [node name="capsule-c" type="CollisionShape2D" parent="static-body"]
