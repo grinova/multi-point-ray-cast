@@ -80,14 +80,14 @@ static func intersect_polygon_points(
 		if p1 == p2:
 			if abs((p3.x - p4.x) * (p1.y - p4.y) - (p1.x - p4.x) * (p3.y - p4.y)) < eps:
 				var p := p1.rotated(rot) + pos
-				points.push_back({ 'p': p, 's': 1.0 })
-				points.push_back({ 'p': p, 's': -1.0 })
+				points.push_back({ 'p': p, 't': true })
+				points.push_back({ 'p': p, 't': false })
 		# NOTE: Луч нулевой длины
 		elif p3 == p4:
 			if abs((p1.x - p2.x) * (p3.y - p2.y) - (p3.x - p2.x) * (p1.y - p2.y)) < eps:
 				var p := p3.rotated(rot) + pos
-				points.push_back({ 'p': p, 's': 1.0 })
-				points.push_back({ 'p': p, 's': -1.0 })
+				points.push_back({ 'p': p, 't': true })
+				points.push_back({ 'p': p, 't': false })
 		else:
 			var intersection := _line_line_intersection(p1, p2, p3, p4, eps)
 			if (
@@ -95,10 +95,10 @@ static func intersect_polygon_points(
 				(intersection.t >= 0.0 and intersection.t < 1.0) and
 				(intersection.u >= 0.0 and intersection.u <= 1.0)
 			):
-				var s := _side(p1, p2, p3)
+				var s := _is_near(p1, p2, p3)
 				var p: Vector2 = intersection.p
 				p = p.rotated(rot) + pos
-				points.push_back({ 'p': p, 's': s })
+				points.push_back({ 'p': p, 't': s })
 	return points
 
 static func intersect_circle(
@@ -114,11 +114,11 @@ static func intersect_circle(
 	if intersections.size() > 0:
 		var intersection: Dictionary = intersections[0]
 		if intersection.t >= 0.0 and intersection.t <= 1.0:
-			points.push_back({ 'p': intersection.p, 's': -1.0 })
+			points.push_back({ 'p': intersection.p, 't': false })
 	if intersections.size() > 1:
 		var intersection: Dictionary = intersections[1]
 		if intersection.t >= 0.0 and intersection.t <= 1.0:
-			points.push_back({ 'p': intersection.p, 's': 1.0 })
+			points.push_back({ 'p': intersection.p, 't': true })
 	return points
 
 static func intersect_capsule(
@@ -146,10 +146,10 @@ static func intersect_capsule(
 			(intersection.t >= 0.0 and intersection.t < 1.0) and
 			(intersection.u >= 0.0 and intersection.u <= 1.0)
 		):
-			var s := _side(p1, p2, p3)
+			var s := _is_near(p1, p2, p3)
 			var p: Vector2 = intersection.p
 			p = p.rotated(rot) + pos
-			points.push_back({ 'p': p, 's': s })
+			points.push_back({ 'p': p, 't': s })
 	if points.size() == 2:
 		return points
 
@@ -163,7 +163,7 @@ static func intersect_capsule(
 			if p.y < 0.0 or p.x == -r and p.y == 0.0:
 				p.y -= hh
 				p = p.rotated(rot) + pos
-				points.push_back({ 'p': p, 's': -1.0 })
+				points.push_back({ 'p': p, 't': false })
 	if intersections.size() > 1:
 		var intersection: Dictionary = intersections[1]
 		if intersection.t >= 0.0 and intersection.t <= 1.0:
@@ -171,7 +171,7 @@ static func intersect_capsule(
 			if p.y < 0.0 or p.x == -r and p.y == 0.0:
 				p.y -= hh
 				p = p.rotated(rot) + pos
-				points.push_back({ 'p': p, 's': 1.0 })
+				points.push_back({ 'p': p, 't': true })
 	if points.size() == 2:
 		return points
 
@@ -185,7 +185,7 @@ static func intersect_capsule(
 			if p.y > 0.0 or p.x == r and p.y == 0.0:
 				p.y += hh
 				p = p.rotated(rot) + pos
-				points.push_back({ 'p': p, 's': -1.0 })
+				points.push_back({ 'p': p, 't': false })
 	if intersections.size() > 1:
 		var intersection: Dictionary = intersections[1]
 		if intersection.t >= 0.0 and intersection.t <= 1.0:
@@ -193,7 +193,7 @@ static func intersect_capsule(
 			if p.y > 0.0 or p.x == -r and p.y == 0.0:
 				p.y += hh
 				p = p.rotated(rot) + pos
-				points.push_back({ 'p': p, 's': 1.0 })
+				points.push_back({ 'p': p, 't': true })
 
 	return points
 
@@ -232,29 +232,27 @@ static func _endpoints(begin_pos: Vector2, end_pos: Vector2, points: Dictionary)
 	else:
 		for node in points:
 			var node_points: Array = points[node]
-			var inside := 0
-			var outside := 0
+			var far := 0
+			var near := 0
 			for point in node_points:
-				if point.s < 0.0:
-					inside += 1
-				elif point.s > 0.0:
-					outside += 1
-			if inside > outside:
-				node_points.push_back({ 'p': begin_pos, 's': 1.0 })
-			elif inside < outside:
-				node_points.push_back({ 'p': end_pos, 's': -1.0 })
+				if point.t:
+					near += 1
+				else:
+					far += 1
+			if far > near:
+				node_points.push_back({ 'p': begin_pos, 't': true })
+			elif far < near:
+				node_points.push_back({ 'p': end_pos, 't': false })
 	if OS.is_debug_build():
 		for node in points:
-			var inside := 0
-			var outside := 0
+			var far := 0
+			var near := 0
 			for point in points[node]:
-				if point.s < 0.0:
-					inside += 1
-				elif point.s > 0.0:
-					outside += 1
-			if inside != outside:
-				pass
-			assert(inside == outside)
+				if point.t:
+					near += 1
+				else:
+					far += 1
+			assert(far == near)
 
 # https://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect
 static func _line_line_intersection(p: Vector2, pr: Vector2, q: Vector2, qs: Vector2, eps: float) -> Dictionary:
@@ -288,9 +286,9 @@ static func _segment_circle_intersection(p1: Vector2, p2: Vector2, center: Vecto
 		result.push_back({ 't': t, 'p': p })
 	return result
 
-static func _side(p1: Vector2, p2: Vector2, p3: Vector2) -> float:
+static func _is_near(p1: Vector2, p2: Vector2, p3: Vector2) -> bool:
 	var d := (p3.x - p1.x) * (p2.y - p1.y) - (p3.y - p1.y) * (p2.x - p1.x)
-	return sign(d)
+	return d >= 0.0
 
 static func _cubic_solve(a: float, b: float, c: float) -> Array:
 	var solution := []
