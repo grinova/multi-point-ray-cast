@@ -69,79 +69,79 @@ position = Vector2( 48, 0 )
 shape = SubResource( 1 )
 disabled = true
 
-[node name="collision-e" type="CollisionPolygon2D" parent="static-body"]
+[node name="polygon-a" type="CollisionPolygon2D" parent="static-body"]
 position = Vector2( 40, 0 )
 polygon = PoolVector2Array( 0, -8, 8, 0, 0, 8, -8, 0 )
 
-[node name="collision-f" type="CollisionPolygon2D" parent="static-body"]
+[node name="polygon-b" type="CollisionPolygon2D" parent="static-body"]
 position = Vector2( 28, -8 )
 polygon = PoolVector2Array( 4, -8, 0, 4, -4, 8, -4, -8 )
 
-[node name="collision-g" type="CollisionPolygon2D" parent="static-body"]
+[node name="polygon-c" type="CollisionPolygon2D" parent="static-body"]
 position = Vector2( 24, 12 )
 polygon = PoolVector2Array( 0, -8, 4, 4, 0, 8, -4, -4 )
 
-[node name="collision-h" type="CollisionPolygon2D" parent="static-body"]
+[node name="polygon-d" type="CollisionPolygon2D" parent="static-body"]
 position = Vector2( -24, -12 )
 polygon = PoolVector2Array( 0, -8, 4, 0, 8, 0, 0, 8, -8, 4, -4, 4, 0, 0, -4, 0, -8, -4, -4, -8 )
 
-[node name="collision-i" type="CollisionPolygon2D" parent="static-body"]
+[node name="polygon-e" type="CollisionPolygon2D" parent="static-body"]
 position = Vector2( -12, -4 )
 polygon = PoolVector2Array( -4, -4, 4, -4, 0, 8, -8, 0 )
 
-[node name="collision-j" type="CollisionPolygon2D" parent="static-body"]
+[node name="polygon-f" type="CollisionPolygon2D" parent="static-body"]
 position = Vector2( -20, 12 )
 polygon = PoolVector2Array( 0, -8, 4, 0, -4, 8, -4, -4 )
 
-[node name="collision-k" type="CollisionPolygon2D" parent="static-body"]
+[node name="polygon-g" type="CollisionPolygon2D" parent="static-body"]
 position = Vector2( -4, -16 )
 polygon = PoolVector2Array( 8, -4, 0, 4, -4, -4 )
 
-[node name="collision-l" type="CollisionPolygon2D" parent="static-body"]
+[node name="polygon-h" type="CollisionPolygon2D" parent="static-body"]
 position = Vector2( -12, 16 )
 polygon = PoolVector2Array( 0, -8, 4, -8, 0, 8, -4, 4 )
 
-[node name="collision-m" type="CollisionPolygon2D" parent="static-body"]
+[node name="polygon-i" type="CollisionPolygon2D" parent="static-body"]
 polygon = PoolVector2Array( -8, -4, 8, -12, 8, 4, -4, 12 )
 
-[node name="collision-n" type="CollisionPolygon2D" parent="static-body"]
+[node name="polygon-j" type="CollisionPolygon2D" parent="static-body"]
 polygon = PoolVector2Array( -4, -4, 4, -8, 4, 4, -4, 8 )
 
-[node name="collision-o" type="CollisionPolygon2D" parent="static-body"]
+[node name="polygon-k" type="CollisionPolygon2D" parent="static-body"]
 position = Vector2( 40, 0 )
 polygon = PoolVector2Array( 0, -4, 4, 0, 0, 4, -4, 0 )
 
-[node name="collision-p" type="CollisionPolygon2D" parent="static-body"]
+[node name="polygon-l" type="CollisionPolygon2D" parent="static-body"]
 position = Vector2( 20, 20 )
 polygon = PoolVector2Array( 4, -12, 8, 4, 0, 4, -4, 0 )
 
-[node name="collision-q" type="CollisionPolygon2D" parent="static-body"]
+[node name="polygon-m" type="CollisionPolygon2D" parent="static-body"]
 position = Vector2( 12, 8 )
 polygon = PoolVector2Array( 8, -8, 4, -4, 4, 4, 0, 4, 0, -8 )
 
-[node name="collision-r" type="CollisionShape2D" parent="static-body"]
+[node name="rectangle-a" type="CollisionShape2D" parent="static-body"]
 position = Vector2( 16, -6 )
 shape = SubResource( 5 )
 
-[node name="collision-s" type="CollisionShape2D" parent="static-body"]
+[node name="rectangle-b" type="CollisionShape2D" parent="static-body"]
 position = Vector2( 4, 16 )
 rotation = 0.523599
 shape = SubResource( 8 )
 
-[node name="collision-t" type="CollisionShape2D" parent="static-body"]
+[node name="convex-a" type="CollisionShape2D" parent="static-body"]
 position = Vector2( -32, 4 )
 shape = SubResource( 6 )
 
-[node name="collision-u" type="CollisionShape2D" parent="static-body"]
+[node name="convex-b" type="CollisionShape2D" parent="static-body"]
 position = Vector2( -32, 16 )
 rotation = 0.523599
 shape = SubResource( 7 )
 
-[node name="collision-v" type="CollisionShape2D" parent="static-body"]
+[node name="circle-a" type="CollisionShape2D" parent="static-body"]
 position = Vector2( 16, -20 )
 shape = SubResource( 10 )
 
-[node name="collision-w" type="CollisionShape2D" parent="static-body"]
+[node name="circle-b" type="CollisionShape2D" parent="static-body"]
 position = Vector2( 0, -2 )
 shape = SubResource( 9 )
 
