@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/scenes/performance/performance.gd" type="Script" id=1]
+[ext_resource path="res://src/scenes/ray/ray.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/scenes/points/points.tscn" type="PackedScene" id=3]
+
+[node name="performance" type="Node2D"]
+script = ExtResource( 1 )
+shape_type = 1
+N = 5000
+
+[node name="camera" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.1, 0.1 )
+
+[node name="static-body" type="StaticBody2D" parent="."]
+position = Vector2( 8, 0 )
+
+[node name="ray" parent="." instance=ExtResource( 2 )]
+position = Vector2( -32, 0 )
+points = PoolVector2Array( 0, 0, 60, 0 )
+_cast_to = Vector2( 60, 0 )
+
+[node name="points" parent="." instance=ExtResource( 3 )]

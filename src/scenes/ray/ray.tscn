@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/scenes/ray/ray.gd" type="Script" id=1]
+
+[node name="ray" type="Line2D"]
+points = PoolVector2Array( 0, 0, 16, 0 )
+width = 0.5
+default_color = Color( 1, 1, 1, 0.501961 )
+script = ExtResource( 1 )

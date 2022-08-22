@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "MultipointRayCastCast",
 "language": "GDScript",
 "path": "res://src/mult-point-ray-cast.gd"
+}, {
+"base": "Line2D",
+"class": "Ray",
+"language": "GDScript",
+"path": "res://src/scenes/ray/ray.gd"
 } ]
 _global_script_class_icons={
-"MultipointRayCastCast": ""
+"MultipointRayCastCast": "",
+"Ray": ""
 }
 
 [application]
