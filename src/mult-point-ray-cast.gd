@@ -8,6 +8,7 @@ static func intersect(
 	end_pos: Vector2,
 	exclude: Array,
 	space_state: Physics2DDirectSpaceState,
+	endpoints: bool = true,
 	eps: float = DEFAULT_EPS
 ) -> Dictionary:
 	var points := {}
@@ -17,42 +18,8 @@ static func intersect(
 			points[node] = intersect_polygon(begin_pos, end_pos, node, eps)
 		elif node is CollisionShape2D:
 			points[node] = intersect_shape(begin_pos, end_pos, node, eps)
-	var has_points := false
-	if points.size() > 0:
-		for node in points:
-			has_points = points[node].size() > 0
-			if has_points:
-				break
-	if not has_points:
-		# TODO: Случай когда луч находится внутри полигона
-		#  либо накладывается на одну из сторон
-		pass
-	else:
-		for node in points:
-			var node_points: Array = points[node]
-			var inside := 0
-			var outside := 0
-			for point in node_points:
-				if point.s < 0.0:
-					inside += 1
-				elif point.s > 0.0:
-					outside += 1
-			if inside > outside:
-				node_points.push_back({ 'p': begin_pos, 's': 1.0 })
-			elif inside < outside:
-				node_points.push_back({ 'p': end_pos, 's': -1.0 })
-	if OS.is_debug_build():
-		for node in points:
-			var inside := 0
-			var outside := 0
-			for point in points[node]:
-				if point.s < 0.0:
-					inside += 1
-				elif point.s > 0.0:
-					outside += 1
-			if inside != outside:
-				pass
-			assert(inside == outside)
+	if endpoints:
+		_endpoints(begin_pos, end_pos, points)
 	return points
 
 static func intersect_shape(
@@ -151,6 +118,44 @@ static func intersect_circle(
 		if intersection.t >= 0.0 and intersection.t <= 1.0:
 			points.push_back({ 'p': intersection.p, 's': 1.0 })
 	return points
+
+static func _endpoints(begin_pos: Vector2, end_pos: Vector2, points: Dictionary) -> void:
+	var has_points := false
+	if points.size() > 0:
+		for node in points:
+			has_points = points[node].size() > 0
+			if has_points:
+				break
+	if not has_points:
+		# TODO: Случай когда луч находится внутри полигона
+		#  либо накладывается на одну из сторон
+		pass
+	else:
+		for node in points:
+			var node_points: Array = points[node]
+			var inside := 0
+			var outside := 0
+			for point in node_points:
+				if point.s < 0.0:
+					inside += 1
+				elif point.s > 0.0:
+					outside += 1
+			if inside > outside:
+				node_points.push_back({ 'p': begin_pos, 's': 1.0 })
+			elif inside < outside:
+				node_points.push_back({ 'p': end_pos, 's': -1.0 })
+	if OS.is_debug_build():
+		for node in points:
+			var inside := 0
+			var outside := 0
+			for point in points[node]:
+				if point.s < 0.0:
+					inside += 1
+				elif point.s > 0.0:
+					outside += 1
+			if inside != outside:
+				pass
+			assert(inside == outside)
 
 static func _segment_cast(
 	begin_pos: Vector2,
