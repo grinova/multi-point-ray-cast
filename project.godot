@@ -10,7 +10,7 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Reference",
-"class": "MultipointRayCastCast",
+"class": "MultipointRayCast",
 "language": "GDScript",
 "path": "res://src/mult-point-ray-cast.gd"
 }, {
@@ -20,7 +20,7 @@ _global_script_classes=[ {
 "path": "res://src/scenes/ray/ray.gd"
 } ]
 _global_script_class_icons={
-"MultipointRayCastCast": "",
+"MultipointRayCast": "",
 "Ray": ""
 }
 

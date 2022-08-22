@@ -32,4 +32,4 @@ func _unhandled_input(event: InputEvent) -> void:
 func _cast() -> void:
 	var begin_pos: Vector2 = _ray.position + _ray.points[0]
 	var end_pos: Vector2 = _ray.position + _ray.points[1]
-	_points.set_points(MultipointRayCastCast.intersect(begin_pos, end_pos, [self], get_world_2d().get_direct_space_state()))
+	_points.set_points(MultipointRayCast.intersect(begin_pos, end_pos, [self], get_world_2d().get_direct_space_state()))

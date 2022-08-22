@@ -15,5 +15,5 @@ func cast() -> Dictionary:
 	var begin_pos: Vector2 = position + points[0].rotated(rotation)
 	var end_pos: Vector2 = position + points[1].rotated(rotation)
 	var space_state := get_world_2d().get_direct_space_state()
-	var points := MultipointRayCastCast.intersect(begin_pos, end_pos, [self], space_state)
+	var points := MultipointRayCast.intersect(begin_pos, end_pos, [self], space_state)
 	return points

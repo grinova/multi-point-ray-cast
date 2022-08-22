@@ -1,5 +1,5 @@
 extends Reference
-class_name MultipointRayCastCast
+class_name MultipointRayCast
 
 const DEFAULT_EPS := 0.00001
 
