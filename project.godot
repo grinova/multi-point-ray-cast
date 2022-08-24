@@ -14,7 +14,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/mult-point-ray-cast.gd"
 }, {
-"base": "Line2D",
+"base": "Node2D",
 "class": "Ray",
 "language": "GDScript",
 "path": "res://src/scenes/ray/ray.gd"
