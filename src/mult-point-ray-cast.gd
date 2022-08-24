@@ -119,8 +119,8 @@ static func intersect_capsule(
 	eps: float
 ) -> Array:
 	var points := []
-	var pos := node.position
-	var rot := node.rotation
+	var pos := node.global_position
+	var rot := node.global_rotation
 	var r := shape.radius
 	var hh := shape.height / 2.0
 
