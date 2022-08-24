@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://src/scenes/performance/performance.gd" type="Script" id=1]
+[ext_resource path="res://src/scenes/profiling/profiling.gd" type="Script" id=1]
 [ext_resource path="res://src/scenes/ray/ray.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/scenes/points/points.tscn" type="PackedScene" id=3]
 
