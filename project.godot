@@ -28,7 +28,6 @@ _global_script_class_icons={
 
 config/name="multi-point-ray-cast"
 run/main_scene="res://src/scenes/example/example.tscn"
-config/icon="res://icon.png"
 
 [physics]
 
