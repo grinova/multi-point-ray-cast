@@ -4,6 +4,12 @@
 
 [node name="ray" type="Line2D"]
 points = PoolVector2Array( 0, 0, 16, 0 )
-width = 0.5
+width = 0.25
 default_color = Color( 1, 1, 1, 0.501961 )
 script = ExtResource( 1 )
+_cast_to = Vector2( 16, 0 )
+
+[node name="arrow" type="Polygon2D" parent="."]
+position = Vector2( 16, 0 )
+color = Color( 1, 1, 1, 0.501961 )
+polygon = PoolVector2Array( 0, -1, 2, 0, 0, 1 )

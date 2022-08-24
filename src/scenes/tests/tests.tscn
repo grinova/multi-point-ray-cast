@@ -1,0 +1,1022 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://src/scenes/ray/ray.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/scenes/tests/tests.gd" type="Script" id=2]
+[ext_resource path="res://src/scenes/points/points.tscn" type="PackedScene" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 6, 6 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 6.0
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 4.0
+height = 8.0
+
+[node name="tests" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="camera" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.15, 0.15 )
+
+[node name="samples" type="Node2D" parent="."]
+
+[node name="polygon-a" type="Node2D" parent="samples"]
+position = Vector2( -60, -35 )
+
+[node name="body" type="StaticBody2D" parent="samples/polygon-a"]
+
+[node name="collision" type="CollisionPolygon2D" parent="samples/polygon-a/body"]
+polygon = PoolVector2Array( -6, -6, 6, -6, 6, 6, -6, 6 )
+
+[node name="rays" type="Node2D" parent="samples/polygon-a"]
+
+[node name="ray-a" parent="samples/polygon-a/rays" instance=ExtResource( 1 )]
+position = Vector2( -8, -6 )
+points = PoolVector2Array( 0, 0, 4, 0 )
+_cast_to = Vector2( 4, 0 )
+
+[node name="ray-b" parent="samples/polygon-a/rays" instance=ExtResource( 1 )]
+position = Vector2( -8, -3 )
+points = PoolVector2Array( 0, 0, 4, 0 )
+_cast_to = Vector2( 4, 0 )
+
+[node name="ray-c" parent="samples/polygon-a/rays" instance=ExtResource( 1 )]
+position = Vector2( -8, 0 )
+
+[node name="ray-d" parent="samples/polygon-a/rays" instance=ExtResource( 1 )]
+position = Vector2( -1, 2 )
+points = PoolVector2Array( 0, 0, 2, 0 )
+_cast_to = Vector2( 2, 0 )
+
+[node name="ray-e" parent="samples/polygon-a/rays" instance=ExtResource( 1 )]
+position = Vector2( -8, 6 )
+points = PoolVector2Array( 0, 0, 4, 0 )
+_cast_to = Vector2( 4, 0 )
+
+[node name="ray-f" parent="samples/polygon-a/rays" instance=ExtResource( 1 )]
+position = Vector2( 4, -6 )
+points = PoolVector2Array( 0, 0, 4, 0 )
+_cast_to = Vector2( 4, 0 )
+
+[node name="ray-g" parent="samples/polygon-a/rays" instance=ExtResource( 1 )]
+position = Vector2( 4, -3 )
+points = PoolVector2Array( 0, 0, 4, 0 )
+_cast_to = Vector2( 4, 0 )
+
+[node name="ray-h" parent="samples/polygon-a/rays" instance=ExtResource( 1 )]
+position = Vector2( 4, 6 )
+points = PoolVector2Array( 0, 0, 4, 0 )
+_cast_to = Vector2( 4, 0 )
+
+[node name="polygon-b" type="Node2D" parent="samples"]
+position = Vector2( -60, -12 )
+
+[node name="body" type="StaticBody2D" parent="samples/polygon-b"]
+
+[node name="collision" type="CollisionPolygon2D" parent="samples/polygon-b/body"]
+polygon = PoolVector2Array( -6, -6, 6, -6, 6, 6, -6, 6 )
+
+[node name="rays" type="Node2D" parent="samples/polygon-b"]
+
+[node name="ray-a" parent="samples/polygon-b/rays" instance=ExtResource( 1 )]
+position = Vector2( 6, -8 )
+points = PoolVector2Array( 0, 0, 0, 4 )
+_cast_to = Vector2( 0, 4 )
+
+[node name="ray-b" parent="samples/polygon-b/rays" instance=ExtResource( 1 )]
+position = Vector2( 3, -8 )
+points = PoolVector2Array( 0, 0, 0, 4 )
+_cast_to = Vector2( 0, 4 )
+
+[node name="ray-c" parent="samples/polygon-b/rays" instance=ExtResource( 1 )]
+position = Vector2( 0, -8 )
+points = PoolVector2Array( 0, 0, 0, 16 )
+_cast_to = Vector2( 0, 16 )
+
+[node name="ray-d" parent="samples/polygon-b/rays" instance=ExtResource( 1 )]
+position = Vector2( -2, -1 )
+points = PoolVector2Array( 0, 0, 0, 2 )
+_cast_to = Vector2( 0, 2 )
+
+[node name="ray-e" parent="samples/polygon-b/rays" instance=ExtResource( 1 )]
+position = Vector2( -6, -8 )
+points = PoolVector2Array( 0, 0, 0, 4 )
+_cast_to = Vector2( 0, 4 )
+
+[node name="ray-f" parent="samples/polygon-b/rays" instance=ExtResource( 1 )]
+position = Vector2( 6, 4 )
+points = PoolVector2Array( 0, 0, 0, 4 )
+_cast_to = Vector2( 0, 4 )
+
+[node name="ray-g" parent="samples/polygon-b/rays" instance=ExtResource( 1 )]
+position = Vector2( 3, 4 )
+points = PoolVector2Array( 0, 0, 0, 4 )
+_cast_to = Vector2( 0, 4 )
+
+[node name="ray-h" parent="samples/polygon-b/rays" instance=ExtResource( 1 )]
+position = Vector2( -6, 4 )
+points = PoolVector2Array( 0, 0, 0, 4 )
+_cast_to = Vector2( 0, 4 )
+
+[node name="polygon-c" type="Node2D" parent="samples"]
+position = Vector2( -36, -36 )
+
+[node name="body" type="StaticBody2D" parent="samples/polygon-c"]
+
+[node name="collision" type="CollisionPolygon2D" parent="samples/polygon-c/body"]
+polygon = PoolVector2Array( -6, -6, 6, -6, 6, 6, -6, 6 )
+
+[node name="rays" type="Node2D" parent="samples/polygon-c"]
+
+[node name="ray-a" parent="samples/polygon-c/rays" instance=ExtResource( 1 )]
+position = Vector2( 8, -6 )
+points = PoolVector2Array( 0, 0, -4, 0 )
+_cast_to = Vector2( -4, 0 )
+
+[node name="ray-b" parent="samples/polygon-c/rays" instance=ExtResource( 1 )]
+position = Vector2( 8, -3 )
+points = PoolVector2Array( 0, 0, -4, 0 )
+_cast_to = Vector2( -4, 0 )
+
+[node name="ray-c" parent="samples/polygon-c/rays" instance=ExtResource( 1 )]
+position = Vector2( 1, 2 )
+points = PoolVector2Array( 0, 0, -2, 0 )
+_cast_to = Vector2( -2, 0 )
+
+[node name="ray-d" parent="samples/polygon-c/rays" instance=ExtResource( 1 )]
+position = Vector2( 8, 0 )
+points = PoolVector2Array( 0, 0, -16, 0 )
+_cast_to = Vector2( -16, 0 )
+
+[node name="ray-e" parent="samples/polygon-c/rays" instance=ExtResource( 1 )]
+position = Vector2( 8, 6 )
+points = PoolVector2Array( 0, 0, -4, 0 )
+_cast_to = Vector2( -4, 0 )
+
+[node name="ray-f" parent="samples/polygon-c/rays" instance=ExtResource( 1 )]
+position = Vector2( -4, -6 )
+points = PoolVector2Array( 0, 0, -4, 0 )
+_cast_to = Vector2( -4, 0 )
+
+[node name="ray-g" parent="samples/polygon-c/rays" instance=ExtResource( 1 )]
+position = Vector2( -4, -3 )
+points = PoolVector2Array( 0, 0, -4, 0 )
+_cast_to = Vector2( -4, 0 )
+
+[node name="ray-h" parent="samples/polygon-c/rays" instance=ExtResource( 1 )]
+position = Vector2( -4, 6 )
+points = PoolVector2Array( 0, 0, -4, 0 )
+_cast_to = Vector2( -4, 0 )
+
+[node name="polygon-d" type="Node2D" parent="samples"]
+position = Vector2( -36, -12 )
+
+[node name="body" type="StaticBody2D" parent="samples/polygon-d"]
+
+[node name="collision" type="CollisionPolygon2D" parent="samples/polygon-d/body"]
+polygon = PoolVector2Array( -6, -6, 6, -6, 6, 6, -6, 6 )
+
+[node name="rays" type="Node2D" parent="samples/polygon-d"]
+
+[node name="ray-a" parent="samples/polygon-d/rays" instance=ExtResource( 1 )]
+position = Vector2( 6, -4 )
+points = PoolVector2Array( 0, 0, 0, -4 )
+_cast_to = Vector2( 0, -4 )
+
+[node name="ray-b" parent="samples/polygon-d/rays" instance=ExtResource( 1 )]
+position = Vector2( 3, -4 )
+points = PoolVector2Array( 0, 0, 0, -4 )
+_cast_to = Vector2( 0, -4 )
+
+[node name="ray-c" parent="samples/polygon-d/rays" instance=ExtResource( 1 )]
+position = Vector2( 0, 8 )
+points = PoolVector2Array( 0, 0, 0, -16 )
+_cast_to = Vector2( 0, -16 )
+
+[node name="ray-d" parent="samples/polygon-d/rays" instance=ExtResource( 1 )]
+position = Vector2( -2, 1 )
+points = PoolVector2Array( 0, 0, 0, -2 )
+_cast_to = Vector2( 0, -2 )
+
+[node name="ray-e" parent="samples/polygon-d/rays" instance=ExtResource( 1 )]
+position = Vector2( -6, -4 )
+points = PoolVector2Array( 0, 0, 0, -4 )
+_cast_to = Vector2( 0, -4 )
+
+[node name="ray-f" parent="samples/polygon-d/rays" instance=ExtResource( 1 )]
+position = Vector2( 6, 8 )
+points = PoolVector2Array( 0, 0, 0, -4 )
+_cast_to = Vector2( 0, -4 )
+
+[node name="ray-g" parent="samples/polygon-d/rays" instance=ExtResource( 1 )]
+position = Vector2( 3, 8 )
+points = PoolVector2Array( 0, 0, 0, -4 )
+_cast_to = Vector2( 0, -4 )
+
+[node name="ray-h" parent="samples/polygon-d/rays" instance=ExtResource( 1 )]
+position = Vector2( -6, 8 )
+points = PoolVector2Array( 0, 0, 0, -4 )
+_cast_to = Vector2( 0, -4 )
+
+[node name="polygon-e" type="Node2D" parent="samples"]
+position = Vector2( -12, -36 )
+
+[node name="body" type="StaticBody2D" parent="samples/polygon-e"]
+
+[node name="collision" type="CollisionPolygon2D" parent="samples/polygon-e/body"]
+polygon = PoolVector2Array( -6, -6, 6, -6, 6, 6, -6, 6 )
+
+[node name="rays" type="Node2D" parent="samples/polygon-e"]
+
+[node name="ray-a" parent="samples/polygon-e/rays" instance=ExtResource( 1 )]
+position = Vector2( -8, -8 )
+points = PoolVector2Array( 0, 0, 4, 4 )
+_cast_to = Vector2( 4, 4 )
+
+[node name="ray-b" parent="samples/polygon-e/rays" instance=ExtResource( 1 )]
+position = Vector2( -5, -8 )
+points = PoolVector2Array( 0, 0, 4, 4 )
+_cast_to = Vector2( 4, 4 )
+
+[node name="ray-c" parent="samples/polygon-e/rays" instance=ExtResource( 1 )]
+position = Vector2( -2, -8 )
+points = PoolVector2Array( 0, 0, 10, 10 )
+_cast_to = Vector2( 10, 10 )
+
+[node name="ray-d" parent="samples/polygon-e/rays" instance=ExtResource( 1 )]
+position = Vector2( 4, -8 )
+points = PoolVector2Array( 0, 0, 4, 4 )
+_cast_to = Vector2( 4, 4 )
+
+[node name="ray-e" parent="samples/polygon-e/rays" instance=ExtResource( 1 )]
+position = Vector2( -2, -2 )
+points = PoolVector2Array( 0, 0, 4, 4 )
+_cast_to = Vector2( 4, 4 )
+
+[node name="ray-f" parent="samples/polygon-e/rays" instance=ExtResource( 1 )]
+position = Vector2( -8, 4 )
+points = PoolVector2Array( 0, 0, 4, 4 )
+_cast_to = Vector2( 4, 4 )
+
+[node name="ray-g" parent="samples/polygon-e/rays" instance=ExtResource( 1 )]
+position = Vector2( 4, 4 )
+points = PoolVector2Array( 0, 0, 4, 4 )
+_cast_to = Vector2( 4, 4 )
+
+[node name="polygon-f" type="Node2D" parent="samples"]
+position = Vector2( -12, -12 )
+
+[node name="body" type="StaticBody2D" parent="samples/polygon-f"]
+
+[node name="collision" type="CollisionPolygon2D" parent="samples/polygon-f/body"]
+polygon = PoolVector2Array( -6, -6, 6, -6, 6, 6, -6, 6 )
+
+[node name="rays" type="Node2D" parent="samples/polygon-f"]
+
+[node name="ray-a" parent="samples/polygon-f/rays" instance=ExtResource( 1 )]
+position = Vector2( -8, -4 )
+points = PoolVector2Array( 0, 0, 4, -4 )
+_cast_to = Vector2( 4, -4 )
+
+[node name="ray-b" parent="samples/polygon-f/rays" instance=ExtResource( 1 )]
+position = Vector2( -5, -4 )
+points = PoolVector2Array( 0, 0, 4, -4 )
+_cast_to = Vector2( 4, -4 )
+
+[node name="ray-c" parent="samples/polygon-f/rays" instance=ExtResource( 1 )]
+position = Vector2( -8, 2 )
+points = PoolVector2Array( 0, 0, 10, -10 )
+_cast_to = Vector2( 10, -10 )
+
+[node name="ray-d" parent="samples/polygon-f/rays" instance=ExtResource( 1 )]
+position = Vector2( 4, -4 )
+points = PoolVector2Array( 0, 0, 4, -4 )
+_cast_to = Vector2( 4, -4 )
+
+[node name="ray-e" parent="samples/polygon-f/rays" instance=ExtResource( 1 )]
+position = Vector2( -8, 8 )
+points = PoolVector2Array( 0, 0, 4, -4 )
+_cast_to = Vector2( 4, -4 )
+
+[node name="ray-f" parent="samples/polygon-f/rays" instance=ExtResource( 1 )]
+position = Vector2( -2, 2 )
+points = PoolVector2Array( 0, 0, 4, -4 )
+_cast_to = Vector2( 4, -4 )
+
+[node name="ray-g" parent="samples/polygon-f/rays" instance=ExtResource( 1 )]
+position = Vector2( 4, 8 )
+points = PoolVector2Array( 0, 0, 4, -4 )
+_cast_to = Vector2( 4, -4 )
+
+[node name="rectangle-a" type="Node2D" parent="samples"]
+position = Vector2( 12, -36 )
+
+[node name="body" type="StaticBody2D" parent="samples/rectangle-a"]
+
+[node name="collision" type="CollisionShape2D" parent="samples/rectangle-a/body"]
+shape = SubResource( 1 )
+
+[node name="rays" type="Node2D" parent="samples/rectangle-a"]
+
+[node name="ray-a" parent="samples/rectangle-a/rays" instance=ExtResource( 1 )]
+position = Vector2( -8, -6 )
+points = PoolVector2Array( 0, 0, 4, 0 )
+_cast_to = Vector2( 4, 0 )
+
+[node name="ray-b" parent="samples/rectangle-a/rays" instance=ExtResource( 1 )]
+position = Vector2( -8, -3 )
+points = PoolVector2Array( 0, 0, 4, 0 )
+_cast_to = Vector2( 4, 0 )
+
+[node name="ray-c" parent="samples/rectangle-a/rays" instance=ExtResource( 1 )]
+position = Vector2( -8, 0 )
+
+[node name="ray-d" parent="samples/rectangle-a/rays" instance=ExtResource( 1 )]
+position = Vector2( -1, 2 )
+points = PoolVector2Array( 0, 0, 2, 0 )
+_cast_to = Vector2( 2, 0 )
+
+[node name="ray-e" parent="samples/rectangle-a/rays" instance=ExtResource( 1 )]
+position = Vector2( -8, 6 )
+points = PoolVector2Array( 0, 0, 4, 0 )
+_cast_to = Vector2( 4, 0 )
+
+[node name="ray-f" parent="samples/rectangle-a/rays" instance=ExtResource( 1 )]
+position = Vector2( 4, -6 )
+points = PoolVector2Array( 0, 0, 4, 0 )
+_cast_to = Vector2( 4, 0 )
+
+[node name="ray-g" parent="samples/rectangle-a/rays" instance=ExtResource( 1 )]
+position = Vector2( 4, -3 )
+points = PoolVector2Array( 0, 0, 4, 0 )
+_cast_to = Vector2( 4, 0 )
+
+[node name="ray-h" parent="samples/rectangle-a/rays" instance=ExtResource( 1 )]
+position = Vector2( 4, 6 )
+points = PoolVector2Array( 0, 0, 4, 0 )
+_cast_to = Vector2( 4, 0 )
+
+[node name="rectangle-b" type="Node2D" parent="samples"]
+position = Vector2( 12, -12 )
+
+[node name="body" type="StaticBody2D" parent="samples/rectangle-b"]
+
+[node name="collision" type="CollisionShape2D" parent="samples/rectangle-b/body"]
+shape = SubResource( 1 )
+
+[node name="rays" type="Node2D" parent="samples/rectangle-b"]
+
+[node name="ray-a" parent="samples/rectangle-b/rays" instance=ExtResource( 1 )]
+position = Vector2( 6, -8 )
+points = PoolVector2Array( 0, 0, 0, 4 )
+_cast_to = Vector2( 0, 4 )
+
+[node name="ray-b" parent="samples/rectangle-b/rays" instance=ExtResource( 1 )]
+position = Vector2( 3, -8 )
+points = PoolVector2Array( 0, 0, 0, 4 )
+_cast_to = Vector2( 0, 4 )
+
+[node name="ray-c" parent="samples/rectangle-b/rays" instance=ExtResource( 1 )]
+position = Vector2( 0, -8 )
+points = PoolVector2Array( 0, 0, 0, 16 )
+_cast_to = Vector2( 0, 16 )
+
+[node name="ray-d" parent="samples/rectangle-b/rays" instance=ExtResource( 1 )]
+position = Vector2( -2, -1 )
+points = PoolVector2Array( 0, 0, 0, 2 )
+_cast_to = Vector2( 0, 2 )
+
+[node name="ray-e" parent="samples/rectangle-b/rays" instance=ExtResource( 1 )]
+position = Vector2( -6, -8 )
+points = PoolVector2Array( 0, 0, 0, 4 )
+_cast_to = Vector2( 0, 4 )
+
+[node name="ray-f" parent="samples/rectangle-b/rays" instance=ExtResource( 1 )]
+position = Vector2( 6, 4 )
+points = PoolVector2Array( 0, 0, 0, 4 )
+_cast_to = Vector2( 0, 4 )
+
+[node name="ray-g" parent="samples/rectangle-b/rays" instance=ExtResource( 1 )]
+position = Vector2( 3, 4 )
+points = PoolVector2Array( 0, 0, 0, 4 )
+_cast_to = Vector2( 0, 4 )
+
+[node name="ray-h" parent="samples/rectangle-b/rays" instance=ExtResource( 1 )]
+position = Vector2( -6, 4 )
+points = PoolVector2Array( 0, 0, 0, 4 )
+_cast_to = Vector2( 0, 4 )
+
+[node name="rectangle-c" type="Node2D" parent="samples"]
+position = Vector2( 36, -36 )
+
+[node name="body" type="StaticBody2D" parent="samples/rectangle-c"]
+
+[node name="collision" type="CollisionShape2D" parent="samples/rectangle-c/body"]
+shape = SubResource( 1 )
+
+[node name="rays" type="Node2D" parent="samples/rectangle-c"]
+
+[node name="ray-a" parent="samples/rectangle-c/rays" instance=ExtResource( 1 )]
+position = Vector2( 8, -6 )
+points = PoolVector2Array( 0, 0, -4, 0 )
+_cast_to = Vector2( -4, 0 )
+
+[node name="ray-b" parent="samples/rectangle-c/rays" instance=ExtResource( 1 )]
+position = Vector2( 8, -3 )
+points = PoolVector2Array( 0, 0, -4, 0 )
+_cast_to = Vector2( -4, 0 )
+
+[node name="ray-c" parent="samples/rectangle-c/rays" instance=ExtResource( 1 )]
+position = Vector2( 1, 2 )
+points = PoolVector2Array( 0, 0, -2, 0 )
+_cast_to = Vector2( -2, 0 )
+
+[node name="ray-d" parent="samples/rectangle-c/rays" instance=ExtResource( 1 )]
+position = Vector2( 8, 0 )
+points = PoolVector2Array( 0, 0, -16, 0 )
+_cast_to = Vector2( -16, 0 )
+
+[node name="ray-e" parent="samples/rectangle-c/rays" instance=ExtResource( 1 )]
+position = Vector2( 8, 6 )
+points = PoolVector2Array( 0, 0, -4, 0 )
+_cast_to = Vector2( -4, 0 )
+
+[node name="ray-f" parent="samples/rectangle-c/rays" instance=ExtResource( 1 )]
+position = Vector2( -4, -6 )
+points = PoolVector2Array( 0, 0, -4, 0 )
+_cast_to = Vector2( -4, 0 )
+
+[node name="ray-g" parent="samples/rectangle-c/rays" instance=ExtResource( 1 )]
+position = Vector2( -4, -3 )
+points = PoolVector2Array( 0, 0, -4, 0 )
+_cast_to = Vector2( -4, 0 )
+
+[node name="ray-h" parent="samples/rectangle-c/rays" instance=ExtResource( 1 )]
+position = Vector2( -4, 6 )
+points = PoolVector2Array( 0, 0, -4, 0 )
+_cast_to = Vector2( -4, 0 )
+
+[node name="rectangle-d" type="Node2D" parent="samples"]
+position = Vector2( 36, -12 )
+
+[node name="body" type="StaticBody2D" parent="samples/rectangle-d"]
+
+[node name="collision" type="CollisionShape2D" parent="samples/rectangle-d/body"]
+shape = SubResource( 1 )
+
+[node name="rays" type="Node2D" parent="samples/rectangle-d"]
+
+[node name="ray-a" parent="samples/rectangle-d/rays" instance=ExtResource( 1 )]
+position = Vector2( 6, -4 )
+points = PoolVector2Array( 0, 0, 0, -4 )
+_cast_to = Vector2( 0, -4 )
+
+[node name="ray-b" parent="samples/rectangle-d/rays" instance=ExtResource( 1 )]
+position = Vector2( 3, -4 )
+points = PoolVector2Array( 0, 0, 0, -4 )
+_cast_to = Vector2( 0, -4 )
+
+[node name="ray-c" parent="samples/rectangle-d/rays" instance=ExtResource( 1 )]
+position = Vector2( 0, 8 )
+points = PoolVector2Array( 0, 0, 0, -16 )
+_cast_to = Vector2( 0, -16 )
+
+[node name="ray-d" parent="samples/rectangle-d/rays" instance=ExtResource( 1 )]
+position = Vector2( -2, 1 )
+points = PoolVector2Array( 0, 0, 0, -2 )
+_cast_to = Vector2( 0, -2 )
+
+[node name="ray-e" parent="samples/rectangle-d/rays" instance=ExtResource( 1 )]
+position = Vector2( -6, -4 )
+points = PoolVector2Array( 0, 0, 0, -4 )
+_cast_to = Vector2( 0, -4 )
+
+[node name="ray-f" parent="samples/rectangle-d/rays" instance=ExtResource( 1 )]
+position = Vector2( 6, 8 )
+points = PoolVector2Array( 0, 0, 0, -4 )
+_cast_to = Vector2( 0, -4 )
+
+[node name="ray-g" parent="samples/rectangle-d/rays" instance=ExtResource( 1 )]
+position = Vector2( 3, 8 )
+points = PoolVector2Array( 0, 0, 0, -4 )
+_cast_to = Vector2( 0, -4 )
+
+[node name="ray-h" parent="samples/rectangle-d/rays" instance=ExtResource( 1 )]
+position = Vector2( -6, 8 )
+points = PoolVector2Array( 0, 0, 0, -4 )
+_cast_to = Vector2( 0, -4 )
+
+[node name="rectangle-e" type="Node2D" parent="samples"]
+position = Vector2( 60, -36 )
+
+[node name="body" type="StaticBody2D" parent="samples/rectangle-e"]
+
+[node name="collision" type="CollisionShape2D" parent="samples/rectangle-e/body"]
+shape = SubResource( 1 )
+
+[node name="rays" type="Node2D" parent="samples/rectangle-e"]
+
+[node name="ray-a" parent="samples/rectangle-e/rays" instance=ExtResource( 1 )]
+position = Vector2( -8, -8 )
+points = PoolVector2Array( 0, 0, 4, 4 )
+_cast_to = Vector2( 4, 4 )
+
+[node name="ray-b" parent="samples/rectangle-e/rays" instance=ExtResource( 1 )]
+position = Vector2( -5, -8 )
+points = PoolVector2Array( 0, 0, 4, 4 )
+_cast_to = Vector2( 4, 4 )
+
+[node name="ray-c" parent="samples/rectangle-e/rays" instance=ExtResource( 1 )]
+position = Vector2( -2, -8 )
+points = PoolVector2Array( 0, 0, 10, 10 )
+_cast_to = Vector2( 10, 10 )
+
+[node name="ray-d" parent="samples/rectangle-e/rays" instance=ExtResource( 1 )]
+position = Vector2( 4, -8 )
+points = PoolVector2Array( 0, 0, 4, 4 )
+_cast_to = Vector2( 4, 4 )
+
+[node name="ray-e" parent="samples/rectangle-e/rays" instance=ExtResource( 1 )]
+position = Vector2( -2, -2 )
+points = PoolVector2Array( 0, 0, 4, 4 )
+_cast_to = Vector2( 4, 4 )
+
+[node name="ray-f" parent="samples/rectangle-e/rays" instance=ExtResource( 1 )]
+position = Vector2( -8, 4 )
+points = PoolVector2Array( 0, 0, 4, 4 )
+_cast_to = Vector2( 4, 4 )
+
+[node name="ray-g" parent="samples/rectangle-e/rays" instance=ExtResource( 1 )]
+position = Vector2( 4, 4 )
+points = PoolVector2Array( 0, 0, 4, 4 )
+_cast_to = Vector2( 4, 4 )
+
+[node name="rectangle-f" type="Node2D" parent="samples"]
+position = Vector2( 60, -12 )
+
+[node name="body" type="StaticBody2D" parent="samples/rectangle-f"]
+
+[node name="collision" type="CollisionShape2D" parent="samples/rectangle-f/body"]
+shape = SubResource( 1 )
+
+[node name="rays" type="Node2D" parent="samples/rectangle-f"]
+
+[node name="ray-a" parent="samples/rectangle-f/rays" instance=ExtResource( 1 )]
+position = Vector2( -8, -4 )
+points = PoolVector2Array( 0, 0, 4, -4 )
+_cast_to = Vector2( 4, -4 )
+
+[node name="ray-b" parent="samples/rectangle-f/rays" instance=ExtResource( 1 )]
+position = Vector2( -5, -4 )
+points = PoolVector2Array( 0, 0, 4, -4 )
+_cast_to = Vector2( 4, -4 )
+
+[node name="ray-c" parent="samples/rectangle-f/rays" instance=ExtResource( 1 )]
+position = Vector2( -8, 2 )
+points = PoolVector2Array( 0, 0, 10, -10 )
+_cast_to = Vector2( 10, -10 )
+
+[node name="ray-d" parent="samples/rectangle-f/rays" instance=ExtResource( 1 )]
+position = Vector2( 4, -4 )
+points = PoolVector2Array( 0, 0, 4, -4 )
+_cast_to = Vector2( 4, -4 )
+
+[node name="ray-e" parent="samples/rectangle-f/rays" instance=ExtResource( 1 )]
+position = Vector2( -8, 8 )
+points = PoolVector2Array( 0, 0, 4, -4 )
+_cast_to = Vector2( 4, -4 )
+
+[node name="ray-f" parent="samples/rectangle-f/rays" instance=ExtResource( 1 )]
+position = Vector2( -2, 2 )
+points = PoolVector2Array( 0, 0, 4, -4 )
+_cast_to = Vector2( 4, -4 )
+
+[node name="ray-g" parent="samples/rectangle-f/rays" instance=ExtResource( 1 )]
+position = Vector2( 4, 8 )
+points = PoolVector2Array( 0, 0, 4, -4 )
+_cast_to = Vector2( 4, -4 )
+
+[node name="circle-a" type="Node2D" parent="samples"]
+position = Vector2( -60, 12 )
+
+[node name="body" type="StaticBody2D" parent="samples/circle-a"]
+
+[node name="collision" type="CollisionShape2D" parent="samples/circle-a/body"]
+shape = SubResource( 2 )
+
+[node name="rays" type="Node2D" parent="samples/circle-a"]
+
+[node name="ray-a" parent="samples/circle-a/rays" instance=ExtResource( 1 )]
+position = Vector2( -8, 0 )
+points = PoolVector2Array( 0, 0, 4, 0 )
+_cast_to = Vector2( 4, 0 )
+
+[node name="ray-b" parent="samples/circle-a/rays" instance=ExtResource( 1 )]
+position = Vector2( 0, -8 )
+points = PoolVector2Array( 0, 0, 0, 4 )
+_cast_to = Vector2( 0, 4 )
+
+[node name="ray-c" parent="samples/circle-a/rays" instance=ExtResource( 1 )]
+position = Vector2( 8, 0 )
+points = PoolVector2Array( 0, 0, -4, 0 )
+_cast_to = Vector2( -4, 0 )
+
+[node name="ray-d" parent="samples/circle-a/rays" instance=ExtResource( 1 )]
+position = Vector2( 0, 8 )
+points = PoolVector2Array( 0, 0, 0, -4 )
+_cast_to = Vector2( 0, -4 )
+
+[node name="ray-e" parent="samples/circle-a/rays" instance=ExtResource( 1 )]
+position = Vector2( -6, -6 )
+points = PoolVector2Array( 0, 0, 4, 4 )
+_cast_to = Vector2( 4, 4 )
+
+[node name="ray-f" parent="samples/circle-a/rays" instance=ExtResource( 1 )]
+position = Vector2( 1, 1 )
+points = PoolVector2Array( 0, 0, 2, 2 )
+_cast_to = Vector2( 2, 2 )
+
+[node name="ray-g" parent="samples/circle-a/rays" instance=ExtResource( 1 )]
+position = Vector2( -6, 6 )
+points = PoolVector2Array( 0, 0, 12, -12 )
+_cast_to = Vector2( 12, -12 )
+
+[node name="circle-b" type="Node2D" parent="samples"]
+position = Vector2( -36, 12 )
+
+[node name="body" type="StaticBody2D" parent="samples/circle-b"]
+
+[node name="collision" type="CollisionShape2D" parent="samples/circle-b/body"]
+shape = SubResource( 2 )
+
+[node name="rays" type="Node2D" parent="samples/circle-b"]
+
+[node name="ray-a" parent="samples/circle-b/rays" instance=ExtResource( 1 )]
+position = Vector2( -4, 0 )
+points = PoolVector2Array( 0, 0, -4, 0 )
+_cast_to = Vector2( -4, 0 )
+
+[node name="ray-b" parent="samples/circle-b/rays" instance=ExtResource( 1 )]
+position = Vector2( 0, -4 )
+points = PoolVector2Array( 0, 0, 0, -4 )
+_cast_to = Vector2( 0, -4 )
+
+[node name="ray-c" parent="samples/circle-b/rays" instance=ExtResource( 1 )]
+position = Vector2( 4, 0 )
+points = PoolVector2Array( 0, 0, 4, 0 )
+_cast_to = Vector2( 4, 0 )
+
+[node name="ray-d" parent="samples/circle-b/rays" instance=ExtResource( 1 )]
+position = Vector2( 0, 4 )
+points = PoolVector2Array( 0, 0, 0, 4 )
+_cast_to = Vector2( 0, 4 )
+
+[node name="ray-e" parent="samples/circle-b/rays" instance=ExtResource( 1 )]
+position = Vector2( -2, -2 )
+points = PoolVector2Array( 0, 0, -4, -4 )
+_cast_to = Vector2( -4, -4 )
+
+[node name="circle-c" type="Node2D" parent="samples"]
+position = Vector2( -12, 12 )
+
+[node name="body" type="StaticBody2D" parent="samples/circle-c"]
+
+[node name="collision" type="CollisionShape2D" parent="samples/circle-c/body"]
+shape = SubResource( 2 )
+
+[node name="rays" type="Node2D" parent="samples/circle-c"]
+
+[node name="ray-a" parent="samples/circle-c/rays" instance=ExtResource( 1 )]
+position = Vector2( -3, -6 )
+points = PoolVector2Array( 0, 0, 6, 0 )
+_cast_to = Vector2( 6, 0 )
+
+[node name="ray-b" parent="samples/circle-c/rays" instance=ExtResource( 1 )]
+position = Vector2( 6, -3 )
+points = PoolVector2Array( 0, 0, 0, 6 )
+_cast_to = Vector2( 0, 6 )
+
+[node name="ray-c" parent="samples/circle-c/rays" instance=ExtResource( 1 )]
+position = Vector2( 3, 6 )
+points = PoolVector2Array( 0, 0, -6, 0 )
+_cast_to = Vector2( -6, 0 )
+
+[node name="ray-d" parent="samples/circle-c/rays" instance=ExtResource( 1 )]
+position = Vector2( -6, 3 )
+points = PoolVector2Array( 0, 0, 0, -6 )
+_cast_to = Vector2( 0, -6 )
+
+[node name="circle-d" type="Node2D" parent="samples"]
+position = Vector2( -60, 32 )
+
+[node name="body" type="StaticBody2D" parent="samples/circle-d"]
+
+[node name="collision" type="CollisionShape2D" parent="samples/circle-d/body"]
+shape = SubResource( 2 )
+
+[node name="rays" type="Node2D" parent="samples/circle-d"]
+
+[node name="ray-a" parent="samples/circle-d/rays" instance=ExtResource( 1 )]
+position = Vector2( -3, 6 )
+points = PoolVector2Array( 0, 0, 6, 0 )
+_cast_to = Vector2( 6, 0 )
+
+[node name="ray-b" parent="samples/circle-d/rays" instance=ExtResource( 1 )]
+position = Vector2( -6, -3 )
+points = PoolVector2Array( 0, 0, 0, 6 )
+_cast_to = Vector2( 0, 6 )
+
+[node name="ray-c" parent="samples/circle-d/rays" instance=ExtResource( 1 )]
+position = Vector2( 3, -6 )
+points = PoolVector2Array( 0, 0, -6, 0 )
+_cast_to = Vector2( -6, 0 )
+
+[node name="ray-d" parent="samples/circle-d/rays" instance=ExtResource( 1 )]
+position = Vector2( 6, 3 )
+points = PoolVector2Array( 0, 0, 0, -6 )
+_cast_to = Vector2( 0, -6 )
+
+[node name="capsule-a" type="Node2D" parent="samples"]
+position = Vector2( 12, 12 )
+
+[node name="body" type="StaticBody2D" parent="samples/capsule-a"]
+
+[node name="collision" type="CollisionShape2D" parent="samples/capsule-a/body"]
+shape = SubResource( 3 )
+
+[node name="rays" type="Node2D" parent="samples/capsule-a"]
+
+[node name="ray-a" parent="samples/capsule-a/rays" instance=ExtResource( 1 )]
+position = Vector2( -6, -4 )
+points = PoolVector2Array( 0, 0, 4, 0 )
+_cast_to = Vector2( 4, 0 )
+
+[node name="ray-b" parent="samples/capsule-a/rays" instance=ExtResource( 1 )]
+position = Vector2( -6, -2 )
+points = PoolVector2Array( 0, 0, 4, 0 )
+_cast_to = Vector2( 4, 0 )
+
+[node name="ray-c" parent="samples/capsule-a/rays" instance=ExtResource( 1 )]
+position = Vector2( -6, 4 )
+points = PoolVector2Array( 0, 0, 4, 0 )
+_cast_to = Vector2( 4, 0 )
+
+[node name="ray-d" parent="samples/capsule-a/rays" instance=ExtResource( 1 )]
+position = Vector2( 2, -4 )
+points = PoolVector2Array( 0, 0, 4, 0 )
+_cast_to = Vector2( 4, 0 )
+
+[node name="ray-e" parent="samples/capsule-a/rays" instance=ExtResource( 1 )]
+position = Vector2( 2, -2 )
+points = PoolVector2Array( 0, 0, 4, 0 )
+_cast_to = Vector2( 4, 0 )
+
+[node name="ray-f" parent="samples/capsule-a/rays" instance=ExtResource( 1 )]
+position = Vector2( 2, 4 )
+points = PoolVector2Array( 0, 0, 4, 0 )
+_cast_to = Vector2( 4, 0 )
+
+[node name="ray-g" parent="samples/capsule-a/rays" instance=ExtResource( 1 )]
+position = Vector2( -6, 2 )
+points = PoolVector2Array( 0, 0, 12, 0 )
+_cast_to = Vector2( 12, 0 )
+
+[node name="ray-h" parent="samples/capsule-a/rays" instance=ExtResource( 1 )]
+position = Vector2( -6, -6 )
+points = PoolVector2Array( 0, 0, 4, 0 )
+_cast_to = Vector2( 4, 0 )
+
+[node name="ray-i" parent="samples/capsule-a/rays" instance=ExtResource( 1 )]
+position = Vector2( 2, -6 )
+points = PoolVector2Array( 0, 0, 4, 0 )
+_cast_to = Vector2( 4, 0 )
+
+[node name="ray-j" parent="samples/capsule-a/rays" instance=ExtResource( 1 )]
+position = Vector2( -6, 6 )
+points = PoolVector2Array( 0, 0, 4, 0 )
+_cast_to = Vector2( 4, 0 )
+
+[node name="ray-k" parent="samples/capsule-a/rays" instance=ExtResource( 1 )]
+position = Vector2( 2, 6 )
+points = PoolVector2Array( 0, 0, 4, 0 )
+_cast_to = Vector2( 4, 0 )
+
+[node name="ray-l" parent="samples/capsule-a/rays" instance=ExtResource( 1 )]
+position = Vector2( -2, 0 )
+points = PoolVector2Array( 0, 0, 4, 0 )
+_cast_to = Vector2( 4, 0 )
+
+[node name="capsule-b" type="Node2D" parent="samples"]
+position = Vector2( 36, 12 )
+
+[node name="body" type="StaticBody2D" parent="samples/capsule-b"]
+
+[node name="collision" type="CollisionShape2D" parent="samples/capsule-b/body"]
+shape = SubResource( 3 )
+
+[node name="rays" type="Node2D" parent="samples/capsule-b"]
+
+[node name="ray-a" parent="samples/capsule-b/rays" instance=ExtResource( 1 )]
+position = Vector2( -2, -4 )
+points = PoolVector2Array( 0, 0, -4, 0 )
+_cast_to = Vector2( -4, 0 )
+
+[node name="ray-b" parent="samples/capsule-b/rays" instance=ExtResource( 1 )]
+position = Vector2( -2, -2 )
+points = PoolVector2Array( 0, 0, -4, 0 )
+_cast_to = Vector2( -4, 0 )
+
+[node name="ray-c" parent="samples/capsule-b/rays" instance=ExtResource( 1 )]
+position = Vector2( -2, 4 )
+points = PoolVector2Array( 0, 0, -4, 0 )
+_cast_to = Vector2( -4, 0 )
+
+[node name="ray-d" parent="samples/capsule-b/rays" instance=ExtResource( 1 )]
+position = Vector2( 6, -4 )
+points = PoolVector2Array( 0, 0, -4, 0 )
+_cast_to = Vector2( -4, 0 )
+
+[node name="ray-e" parent="samples/capsule-b/rays" instance=ExtResource( 1 )]
+position = Vector2( 6, -2 )
+points = PoolVector2Array( 0, 0, -4, 0 )
+_cast_to = Vector2( -4, 0 )
+
+[node name="ray-f" parent="samples/capsule-b/rays" instance=ExtResource( 1 )]
+position = Vector2( 6, 4 )
+points = PoolVector2Array( 0, 0, -4, 0 )
+_cast_to = Vector2( -4, 0 )
+
+[node name="ray-g" parent="samples/capsule-b/rays" instance=ExtResource( 1 )]
+position = Vector2( 6, 2 )
+points = PoolVector2Array( 0, 0, -12, 0 )
+_cast_to = Vector2( -12, 0 )
+
+[node name="ray-h" parent="samples/capsule-b/rays" instance=ExtResource( 1 )]
+position = Vector2( -2, -6 )
+points = PoolVector2Array( 0, 0, -4, 0 )
+_cast_to = Vector2( -4, 0 )
+
+[node name="ray-i" parent="samples/capsule-b/rays" instance=ExtResource( 1 )]
+position = Vector2( 6, -6 )
+points = PoolVector2Array( 0, 0, -4, 0 )
+_cast_to = Vector2( -4, 0 )
+
+[node name="ray-j" parent="samples/capsule-b/rays" instance=ExtResource( 1 )]
+position = Vector2( -2, 6 )
+points = PoolVector2Array( 0, 0, -4, 0 )
+_cast_to = Vector2( -4, 0 )
+
+[node name="ray-k" parent="samples/capsule-b/rays" instance=ExtResource( 1 )]
+position = Vector2( 6, 6 )
+points = PoolVector2Array( 0, 0, -4, 0 )
+_cast_to = Vector2( -4, 0 )
+
+[node name="capsule-c" type="Node2D" parent="samples"]
+position = Vector2( 60, 12 )
+
+[node name="body" type="StaticBody2D" parent="samples/capsule-c"]
+
+[node name="collision" type="CollisionShape2D" parent="samples/capsule-c/body"]
+shape = SubResource( 3 )
+
+[node name="rays" type="Node2D" parent="samples/capsule-c"]
+
+[node name="ray-a" parent="samples/capsule-c/rays" instance=ExtResource( 1 )]
+position = Vector2( -6, -5 )
+points = PoolVector2Array( 0, 0, 4, 2 )
+_cast_to = Vector2( 4, 2 )
+
+[node name="ray-b" parent="samples/capsule-c/rays" instance=ExtResource( 1 )]
+position = Vector2( -6, -3 )
+points = PoolVector2Array( 0, 0, 12, 6 )
+_cast_to = Vector2( 12, 6 )
+
+[node name="ray-c" parent="samples/capsule-c/rays" instance=ExtResource( 1 )]
+position = Vector2( -6, -1 )
+points = PoolVector2Array( 0, 0, 4, 2 )
+_cast_to = Vector2( 4, 2 )
+
+[node name="ray-d" parent="samples/capsule-c/rays" instance=ExtResource( 1 )]
+position = Vector2( -6, 3 )
+points = PoolVector2Array( 0, 0, 4, 2 )
+_cast_to = Vector2( 4, 2 )
+
+[node name="ray-e" parent="samples/capsule-c/rays" instance=ExtResource( 1 )]
+position = Vector2( 2, -5 )
+points = PoolVector2Array( 0, 0, 4, 2 )
+_cast_to = Vector2( 4, 2 )
+
+[node name="ray-f" parent="samples/capsule-c/rays" instance=ExtResource( 1 )]
+position = Vector2( 2, -3 )
+points = PoolVector2Array( 0, 0, 4, 2 )
+_cast_to = Vector2( 4, 2 )
+
+[node name="ray-g" parent="samples/capsule-c/rays" instance=ExtResource( 1 )]
+position = Vector2( 2, 3 )
+points = PoolVector2Array( 0, 0, 4, 2 )
+_cast_to = Vector2( 4, 2 )
+
+[node name="ray-h" parent="samples/capsule-c/rays" instance=ExtResource( 1 )]
+position = Vector2( -5, -7 )
+points = PoolVector2Array( 0, 0, 4, 2 )
+_cast_to = Vector2( 4, 2 )
+
+[node name="ray-i" parent="samples/capsule-c/rays" instance=ExtResource( 1 )]
+position = Vector2( 1, -7 )
+points = PoolVector2Array( 0, 0, 4, 2 )
+_cast_to = Vector2( 4, 2 )
+
+[node name="ray-j" parent="samples/capsule-c/rays" instance=ExtResource( 1 )]
+position = Vector2( -5, 5 )
+points = PoolVector2Array( 0, 0, 4, 2 )
+_cast_to = Vector2( 4, 2 )
+
+[node name="ray-k" parent="samples/capsule-c/rays" instance=ExtResource( 1 )]
+position = Vector2( 1, 5 )
+points = PoolVector2Array( 0, 0, 4, 2 )
+_cast_to = Vector2( 4, 2 )
+
+[node name="capsule-d" type="Node2D" parent="samples"]
+position = Vector2( 12, 32 )
+
+[node name="body" type="StaticBody2D" parent="samples/capsule-d"]
+
+[node name="collision" type="CollisionShape2D" parent="samples/capsule-d/body"]
+shape = SubResource( 3 )
+
+[node name="rays" type="Node2D" parent="samples/capsule-d"]
+
+[node name="ray-a" parent="samples/capsule-d/rays" instance=ExtResource( 1 )]
+position = Vector2( -4, -5 )
+points = PoolVector2Array( 0, 0, 0, 2 )
+_cast_to = Vector2( 0, 2 )
+
+[node name="ray-b" parent="samples/capsule-d/rays" instance=ExtResource( 1 )]
+position = Vector2( 4, -5 )
+points = PoolVector2Array( 0, 0, 0, 2 )
+_cast_to = Vector2( 0, 2 )
+
+[node name="ray-c" parent="samples/capsule-d/rays" instance=ExtResource( 1 )]
+position = Vector2( -4, 3 )
+points = PoolVector2Array( 0, 0, 0, 2 )
+_cast_to = Vector2( 0, 2 )
+
+[node name="ray-d" parent="samples/capsule-d/rays" instance=ExtResource( 1 )]
+position = Vector2( 4, 3 )
+points = PoolVector2Array( 0, 0, 0, 2 )
+_cast_to = Vector2( 0, 2 )
+
+[node name="ray-e" parent="samples/capsule-d/rays" instance=ExtResource( 1 )]
+position = Vector2( 0, -9 )
+points = PoolVector2Array( 0, 0, 0, 2 )
+_cast_to = Vector2( 0, 2 )
+
+[node name="ray-f" parent="samples/capsule-d/rays" instance=ExtResource( 1 )]
+position = Vector2( 0, 7 )
+points = PoolVector2Array( 0, 0, 0, 2 )
+_cast_to = Vector2( 0, 2 )
+
+[node name="capsule-e" type="Node2D" parent="samples"]
+position = Vector2( 36, 32 )
+
+[node name="body" type="StaticBody2D" parent="samples/capsule-e"]
+
+[node name="collision" type="CollisionShape2D" parent="samples/capsule-e/body"]
+shape = SubResource( 3 )
+
+[node name="rays" type="Node2D" parent="samples/capsule-e"]
+
+[node name="ray-a" parent="samples/capsule-e/rays" instance=ExtResource( 1 )]
+position = Vector2( -4, -3 )
+points = PoolVector2Array( 0, 0, 0, -2 )
+_cast_to = Vector2( 0, -2 )
+
+[node name="ray-b" parent="samples/capsule-e/rays" instance=ExtResource( 1 )]
+position = Vector2( 4, -3 )
+points = PoolVector2Array( 0, 0, 0, -2 )
+_cast_to = Vector2( 0, -2 )
+
+[node name="ray-c" parent="samples/capsule-e/rays" instance=ExtResource( 1 )]
+position = Vector2( -4, 5 )
+points = PoolVector2Array( 0, 0, 0, -2 )
+_cast_to = Vector2( 0, -2 )
+
+[node name="ray-d" parent="samples/capsule-e/rays" instance=ExtResource( 1 )]
+position = Vector2( 4, 5 )
+points = PoolVector2Array( 0, 0, 0, -2 )
+_cast_to = Vector2( 0, -2 )
+
+[node name="ray-e" parent="samples/capsule-e/rays" instance=ExtResource( 1 )]
+position = Vector2( 0, -7 )
+points = PoolVector2Array( 0, 0, 0, -2 )
+_cast_to = Vector2( 0, -2 )
+
+[node name="ray-f" parent="samples/capsule-e/rays" instance=ExtResource( 1 )]
+position = Vector2( 0, 9 )
+points = PoolVector2Array( 0, 0, 0, -2 )
+_cast_to = Vector2( 0, -2 )
+
+[node name="points" parent="." instance=ExtResource( 3 )]
